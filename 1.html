@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strategy View</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="toggle-buttons">
+            <button class="toggle-btn active" onclick="changeView('Bullish')">Bullish</button>
+            <button class="toggle-btn" onclick="changeView('Bearish')">Bearish</button>
+            <button class="toggle-btn" onclick="changeView('RangeBound')">RangeBound</button>
+            <button class="toggle-btn" onclick="changeView('Volatile')">Volatile</button>
+        </div>
+        <select id="date-dropdown" onchange="renderStrategies()">
+            <!-- Dates will be populated by JS -->
+        </select>
+        <div id="strategy-container">
+            <!-- Strategies will be displayed here -->
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
