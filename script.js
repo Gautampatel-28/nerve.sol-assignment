@@ -1,5 +1,3 @@
-
-
 const dateArray = [
     '24-Apr-2024', '02-May-2024', '09-May-2024', '31-May-2024', '21-Jun-2024'
 ];
@@ -39,21 +37,69 @@ const strategyArray = [
     }
 ];
 
-
+let currentView = "Bullish";
 const dateDropdown = document.getElementById("date-dropdown");
-// const strategyContainer = document.getElementById("strategy-container");
+const strategyContainer = document.getElementById("strategy-container");
 
-function populateDateDropdown(){
-    dateArray.forEach(date => {
-        const option = document.createElement('option')
-        option.value = date;
-        option.textContent = date;
-        dateDropdown.appendChild(option)
+function populateDateDropdown() {
+    dateArray.forEach(index => {
+        const option = document.createElement('option');
+        option.value = index;
+        option.textContent = index;
+        dateDropdown.appendChild(option);
     });
+            console.log(dateArray);
     dateDropdown.value = dateArray[0];
 }
 
 populateDateDropdown();
+
+function changeView(view) {
+    console.log('Changing view to:', view);
+    currentView = view;
+    document.querySelectorAll(".toggle-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.textContent === view);
+    });
+    renderStrategies();
+}
+
+function renderStrategies() {
+    const selectedDate = dateDropdown.value;
+    console.log('Rendering strategies for view:', currentView);
+    console.log('Selected date is:', selectedDate);
+    
+    const strategiesForView = strategyArray.find(strategy => strategy.View === currentView);
+    console.log('Strategies for current view:', strategiesForView);
+    
+    const strategiesForDate = strategiesForView ? strategiesForView.Value[selectedDate] : [];
+    console.log('Strategies for selected date:', strategiesForDate);
+
+    strategyContainer.innerHTML = '';
+
+    if (strategiesForDate && strategiesForDate.length > 0) {
+        const strategyCount = strategiesForDate.reduce((acc, strategy) => {
+            acc[strategy] = (acc[strategy] || 0) + 1;
+            return acc;
+        }, {});
+
+        console.log('Strategy counts:', strategyCount);
+
+        Object.entries(strategyCount).forEach(([strategyName, count]) => {
+            const card = document.createElement('div');
+            card.className = 'strategy-card';
+            card.innerHTML = `
+                <div class="strategy-name">${strategyName}</div>
+                <div>${count} ${count > 1 ? 'Strategies' : 'Strategy'}</div>
+            `;
+            strategyContainer.appendChild(card);
+            console.log('Added strategy card for:', strategyName, 'with count:', count);
+        });
+    } else {
+        console.log('No strategies found for selected date:', selectedDate);
+        const emptyState = document.createElement('div');
+        emptyState.className = "empty-state";
+        emptyState.textContent = `No strategies available for ${selectedDate}`;
+        strategyContainer.appendChild(emptyState);
+    }
+}
 renderStrategies();
-
-
