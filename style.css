@@ -72,3 +72,50 @@ body{
     color: #999;
     margin-top: 20px;
 }
+
+
+
+
+/*Responsive*/
+@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+    }
+
+    .toggle-btn {
+        margin-right: 2px;
+    }
+
+    .toggle-buttons {
+        flex-direction: column;
+    }
+
+    .toggle-btn {
+        margin-bottom: 10px;
+    }
+
+    .toggle-btn:last-child {
+        margin-bottom: 0;
+    }
+}
+
+
+
+
+@media (min-width: 1025px) {
+    .container {
+        padding: 40px;
+    }
+
+    .toggle-btn {
+        margin-right: 12px;
+    }
+
+    .toggle-buttons {
+        flex-direction: row;
+    }
+
+    .toggle-btn {
+        margin-bottom: 0;
+    }
+}
