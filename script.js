@@ -55,24 +55,23 @@ function populateDateDropdown() {
 populateDateDropdown();
 
 function changeView(view) {
-    console.log('Changing view to:', view);
     currentView = view;
     document.querySelectorAll(".toggle-btn").forEach(btn => {
         btn.classList.toggle("active", btn.textContent === view);
     });
+    console.log(view); 
     renderStrategies();
 }
 
 function renderStrategies() {
     const selectedDate = dateDropdown.value;
-    console.log('Rendering strategies for view:', currentView);
+    console.log(currentView);
     console.log('Selected date is:', selectedDate);
     
     const strategiesForView = strategyArray.find(strategy => strategy.View === currentView);
-    console.log('Strategies for current view:', strategiesForView);
+    console.log( strategiesForView);
     
     const strategiesForDate = strategiesForView ? strategiesForView.Value[selectedDate] : [];
-    console.log('Strategies for selected date:', strategiesForDate);
 
     strategyContainer.innerHTML = '';
 
@@ -82,7 +81,7 @@ function renderStrategies() {
             return acc;
         }, {});
 
-        console.log('Strategy counts:', strategyCount);
+        console.log(strategyCount);
 
         Object.entries(strategyCount).forEach(([strategyName, count]) => {
             const card = document.createElement('div');
@@ -92,7 +91,7 @@ function renderStrategies() {
                 <div>${count} ${count > 1 ? 'Strategies' : 'Strategy'}</div>
             `;
             strategyContainer.appendChild(card);
-            console.log('Added strategy card for:', strategyName, 'with count:', count);
+            
         });
     } else {
         console.log('No strategies found for selected date:', selectedDate);
